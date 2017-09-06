@@ -86,6 +86,73 @@
                     <target>1.7</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.0.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <includes>
+                        <include>**/*.java</include>
+                    </includes>
+                    <excludes>
+                        <exclude>Test*</exclude>
+                    </excludes>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
+
+    <!-- Nexus server(s) for publishing snapshots & releases -->
+    <distributionManagement>
+        <!-- Publish the versioned releases here -->
+        <repository>
+            <id>nexus</id>
+            <name>Nexus Release Repo</name>
+            <url>http://nexus.idmapps.nqbuild.lab/nexus/content/repositories/releases</url>
+        </repository>
+        <!-- Publish the versioned releases here -->
+        <snapshotRepository>
+            <id>nexus</id>
+            <name>Nexus Snapshot Repo</name>
+            <url>http://nexus.idmapps.nqbuild.lab/nexus/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <!-- download artifacts from this repo -->
+    <repositories>
+        <repository>
+            <id>nexus</id>
+            <name>Micro Focus Nexus Repo</name>
+            <url>http://nexus.idmapps.nqbuild.lab/nexus/content/repositories/snapshots</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <!-- download plugins from this repo -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>nexus</id>
+            <name>Micro Focus Nexus Repo</name>
+            <url>http://nexus.idmapps.nqbuild.lab/nexus/content/repositories/snapshots</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>true</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 </project>
